@@ -1,3 +1,5 @@
+# A custom binary search tree 
+
 from order import Order
 class Node:
     def __init__(self, T): 
