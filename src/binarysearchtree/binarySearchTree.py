@@ -31,7 +31,7 @@ class BinarySearchTree:
     # If price level doesnt exist then create a new one.
     def update(self, order):
         toInsert = self.find(order.price)
-        if toInsert.val == order.price:
+        if toInsert != None and toInsert.val == order.price:
             if order.userId in toInsert.pool: 
                 toInsert.pool[order.userId] += order.size
             else: 
@@ -61,7 +61,7 @@ class BinarySearchTree:
         def helper(node):
             if node != None:
                 helper(node.left)
-                lst.append(node.value)
+                lst.append(node.val)
                 helper(node.right)
         helper(self.root)
         return lst
