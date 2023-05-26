@@ -9,13 +9,12 @@ class Node:
         self.pool = {T.userId: T.size} # map players to their size at this price level
 
 class BinarySearchTree:
+
     def __init__(self):
         self.root = None
-        self.max = None
-        self.min = None
         self.len = 0 
 
-    def insert(self,node):
+    def insert(self, node):
         self.len += 1;
         if self.root == None:
             self.root = node
@@ -26,6 +25,24 @@ class BinarySearchTree:
                 target.left = node
             else:
                 target.right = node
+
+    # Removes a price level
+    def remove(self, node):
+        toRemove = self.find(node)
+        if node.val == toRemove.val:
+            if node.right != None and node.left != None:
+                pass
+            elif node.right != None or node.left != None:
+                pass
+            else:
+                parent = toRemove.parent
+                if parent.right == toRemove:
+                    parent.right = None
+                else:
+                    parent.left = None
+                del toRemove
+        else:
+            raise Exception("Element doesnt exist")
     
     # Adds order to price level, 
     # If price level doesnt exist then create a new one.
@@ -56,16 +73,22 @@ class BinarySearchTree:
                 current = current.right
         return previous   
 
+    # Returns nodes inorder
     def inorderTraversal(self):
         lst = []
         def helper(node):
             if node != None:
                 helper(node.left)
-                lst.append(node.val)
+                lst.append(node)
                 helper(node.right)
         helper(self.root)
         return lst
-    
-    def __str__(self): return str(self.inorderTraversal())
+
+    def toList(self):
+        return list(map(lambda node: node.val, self.inorderTraversal()))
+
+    def __str__(self): return str(self.toList())
 
     def __len__(self): return self.len
+
+    

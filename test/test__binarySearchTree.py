@@ -12,7 +12,7 @@ class TestBinarySearchTree(unittest.TestCase):
 
     def test_bstIsOrderedCorrectly(self):
         self.assertEqual(len(self.bst),3)
-        self.assertEqual(self.bst.inorderTraversal(), [0,1,2])
+        self.assertEqual(self.bst.toList(), [0, 1, 2])
 
     def test_bstUpdate(self):
         self.bst.update(Order(1,20))
@@ -21,7 +21,7 @@ class TestBinarySearchTree(unittest.TestCase):
         self.assertEqual(self.bst.root.pool[None], 30)
         self.assertEqual(len(self.bst), 4)
         self.assertEqual(self.bst.root.left.left.pool[None], 0)
-        self.assertEqual(self.bst.inorderTraversal(), [-1,0,1,2])
+        self.assertEqual(str(self.bst), "[-1, 0, 1, 2]")
 
     def test_bstLength(self):
         self.assertEqual(len(self.bst), 3)
