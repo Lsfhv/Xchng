@@ -6,7 +6,9 @@ class Node:
         self.right = None
 
         self.val = T.price # price level
-        self.pool = {T.userId: T.size} # map players to their size at this price level
+
+        self.orders = [T]
+
 
 class BinarySearchTree:
 
@@ -26,36 +28,8 @@ class BinarySearchTree:
             else:
                 target.right = node
 
-    # Removes a price level
     def remove(self, node):
-        toRemove = self.find(node)
-        if node.val == toRemove.val:
-            if node.right != None and node.left != None:
-                pass
-            elif node.right != None or node.left != None:
-                pass
-            else:
-                parent = toRemove.parent
-                if parent.right == toRemove:
-                    parent.right = None
-                else:
-                    parent.left = None
-                del toRemove
-        else:
-            raise Exception("Element doesnt exist")
-    
-    # Adds order to price level, 
-    # If price level doesnt exist then create a new one.
-    def update(self, order):
-        toInsert = self.find(order.price)
-        if toInsert != None and toInsert.val == order.price:
-            if order.userId in toInsert.pool: 
-                toInsert.pool[order.userId] += order.size
-            else: 
-                toInsert.pool[order.userId] = order.size
-        else:
-            self.insert(Node(order))
-
+        pass
     
     # Finds element with key and returns it. 
     # If not found, return the node where 
