@@ -10,10 +10,11 @@ class Orderbook:
 
     # Adds an order to the order book
     def add(self, order):
+        # Before order is placed, run matching algorithm
         if order.side == BID:
-            pass
+            self.bids.update(order)
         elif order.side == ASK:
-            pass
+            self.asks.update(order)
         else:
-            raise Exception("Order has not valid side")
+            raise Exception("Order does not have a valid side")
     

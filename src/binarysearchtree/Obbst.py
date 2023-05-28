@@ -5,7 +5,10 @@ class ObBST(BinarySearchTree):
     # Adds an order
     def update(self, order):
         node = self.find(order.price)
-        if node.val == order.price:
+
+        if node == None:
+            self.insert(Node(order))
+        elif node.val == order.price:
             node.orders.append(order)
         else:
             # Price level doesnt exist so add it 

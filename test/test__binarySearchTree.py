@@ -49,4 +49,52 @@ class TestBinarySearchTree(unittest.TestCase):
         node = self.bst.find(66)
         self.assertEqual(node.parent.val, 65)
 
+    #       10
+    #       /
+    #      9
+    #     /\
+    #    8 9.1
+    def test_removeRootWithOnly1ChildOnTheLeft(self): 
+        bst = BinarySearchTree()
+        bst.insert(Node(Order(10,0)))
+        bst.insert(Node(Order(9,0)))
+        bst.insert(Node(Order(8,0)))
+        bst.insert(Node(Order(9.1,0)))
+        self.assertEqual(bst.toList(), [8,9,9.1,10])
+        bst.remove(10)
+        self.assertEqual(bst.toList(), [8,9,9.1])
+        self.assertTrue(bst.root.val == 9)
+        self.assertTrue(bst.root.left.val == 8)
+        self.assertTrue(bst.root.right.val == 9.1)
+        self.assertTrue(bst.root.left.parent == bst.root)
+        self.assertTrue(bst.root.right.parent == bst.root)
+        self.assertTrue(bst.root.parent == None)
+
+    #    #       10
+    #    #       /
+   #     #      9
+   #     #     /
+    #    #    8 
+    #        /\
+    #       7  8.1 
+    def test_removeNodeWithOnly1Child(self):
+        bst = BinarySearchTree()
+        bst.insert(Node(Order(10,0)))
+        bst.insert(Node(Order(9,0)))
+        bst.insert(Node(Order(8,0)))
+        bst.insert(Node(Order(7,0)))
+        bst.insert(Node(Order(8.1,0)))
+        self.assertEqual(bst.toList(), [7,8,8.1,9,10])
+        bst.remove(9)
+        self.assertEqual(bst.toList(), [7,8,8.1,10])
+
+        self.assertTrue(bst.root.left.val == 8)
+        self.assertTrue(bst.root.left.parent.val == 10)
+
+        self.assertTrue(bst.root.left.left.val == 7)
+        self.assertTrue(bst.root.left.right.val == 8.1)
+
+
+
+
     

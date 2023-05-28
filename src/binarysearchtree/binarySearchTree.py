@@ -28,12 +28,42 @@ class BinarySearchTree:
             else:
                 target.right = node
 
-    def remove(self, node):
-        pass
+    def remove(self, key):
+        nodeToRemove = self.find(key)
+        if nodeToRemove.val != key:
+            raise Exception("Element does not exist")
+        
+        parent = nodeToRemove.parent
+
+        if nodeToRemove.left != None and nodeToRemove.right != None:
+            # Node to remove has 2 children
+            pass
+        elif nodeToRemove.left != None or nodeToRemove.right != None:
+            # Node to remove has 1 child
+            if nodeToRemove.left != None:
+                subTree = nodeToRemove.left
+            else:
+                subTree = nodeToRemove.right
+            if parent == None:
+                self.root = subTree
+                self.root.parent = None
+            else:
+                subTree.parent = parent
+                if parent.left == nodeToRemove:
+                    parent.left = subTree
+                elif parent.right == toRemove:
+                    parent.right = subTree
+        else:
+            # Node to remove has 0 children
+            if parent != None and parent.left == nodeToRemove:
+                parent.left = None
+            elif parent != None and parent.right == nodeToRemove:
+                parent.right = None
     
     # Finds element with key and returns it. 
     # If not found, return the node where 
     # a new node with key would be the child of.
+    # returns None if the tree is empty. 
     def find(self, key):
         current = self.root
         previous = None

@@ -62,33 +62,13 @@ class TestBinarySearchTree(unittest.TestCase):
         self.assertEqual(len(priceLevel), 2)
         self.assertEqual(priceLevel[1], order)
 
+    def test_emptyOb(self):
+        testob = ObBST()
+        testob.update(Order(60,0))
+        self.assertEqual(testob.toList(), [60])
+
     def test_obUpdatePriceLeveLDoesNotExist(self):
         pass
 
-    # def test_bstHasCorrectLength(self):
-    #     self.assertEqual(len(self.ob), 12)
-
-    # def test_bstIsSorted(self):
-    #     self.assertEqual(self.bst.toList(), [60, 65, 70, 75, 85, 95, 100, 115, 125, 135, 150, 175])
-
-    # def test_bstFindFindsTheCorrectNode(self):
-    #     node = self.bst.find(175)
-    
-    # def test_bstFindFindsTheClosestNodeForAKeyThatDoesntExist(self):
-    #     node = self.bst.find(176)
-    #     self.assertEqual(node.val, 175)
-
-    #     node = self.bst.find(84)
-    #     self.assertEqual(node.val, 85)
-
-    #     node = self.bst.find(66)
-    #     self.assertEqual(node.val, 70)
-
-    # # Checks some nodes that their pointers are set correctly
-    # def test_someBstPointers(self):
-    #     self.assertEqual(self.bst.root.parent, None)
-
-    #     node = self.bst.find(66)
-    #     self.assertEqual(node.parent.val, 65)
-
+        
     
