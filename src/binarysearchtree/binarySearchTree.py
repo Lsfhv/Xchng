@@ -40,10 +40,13 @@ class BinarySearchTree:
             pass
         elif nodeToRemove.left != None or nodeToRemove.right != None:
             # Node to remove has 1 child
+
+            # The subtree of the node that will be removed
             if nodeToRemove.left != None:
                 subTree = nodeToRemove.left
             else:
                 subTree = nodeToRemove.right
+            
             if parent == None:
                 self.root = subTree
                 self.root.parent = None
@@ -51,7 +54,7 @@ class BinarySearchTree:
                 subTree.parent = parent
                 if parent.left == nodeToRemove:
                     parent.left = subTree
-                elif parent.right == toRemove:
+                elif parent.right == nodeToRemove:
                     parent.right = subTree
         else:
             # Node to remove has 0 children
