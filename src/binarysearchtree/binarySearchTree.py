@@ -37,7 +37,29 @@ class BinarySearchTree:
 
         if nodeToRemove.left != None and nodeToRemove.right != None:
             # Node to remove has 2 children
-            pass
+            inorder = self.inorderTraversal()
+
+            minOfRightSubTree = inorder[inorder.index(nodeToRemove) + 1]
+
+            self.remove(minOfRightSubTree.val)
+
+            leftChild = nodeToRemove.left
+            rightChild = nodeToRemove.right
+
+            if leftChild != None: leftChild.parent = minOfRightSubTree
+            if rightChild != None: rightChild.parent = minOfRightSubTree
+
+            if parent == None:
+                self.root = minOfRightSubTree
+            if parent != None and parent.right == nodeToRemove: 
+                parent.right = minOfRightSubTree
+            elif parent != None and parent.left == nodeToRemove:
+                parent.left = minOfRightSubTree
+
+            minOfRightSubTree.parent = parent
+            minOfRightSubTree.left = leftChild
+            minOfRightSubTree.right = rightChild
+
         elif nodeToRemove.left != None or nodeToRemove.right != None:
             # Node to remove has 1 child
 
@@ -47,7 +69,7 @@ class BinarySearchTree:
             else:
                 subTree = nodeToRemove.right
             
-            if parent == None:
+            if parent == None: # Node removed was root
                 self.root = subTree
                 self.root.parent = None
             else:
@@ -57,7 +79,8 @@ class BinarySearchTree:
                 elif parent.right == nodeToRemove:
                     parent.right = subTree
         else:
-            # Node to remove has 0 children
+            # Node to remove has 0 children (leaf)
+            nodeToRemove.parent = None
             if parent != None and parent.left == nodeToRemove:
                 parent.left = None
             elif parent != None and parent.right == nodeToRemove:

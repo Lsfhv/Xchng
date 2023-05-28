@@ -94,6 +94,59 @@ class TestBinarySearchTree(unittest.TestCase):
         self.assertTrue(bst.root.left.left.val == 7)
         self.assertTrue(bst.root.left.right.val == 8.1)
 
+    #  10
+    #  /\
+    # 8 11
+    def test_removeRootWith2Children(self):
+        bst = BinarySearchTree()
+        bst.insert(Node(Order(10,0)))
+        bst.insert(Node(Order(11,0)))
+        bst.insert(Node(Order(8,0)))
+
+        bst.remove(10)
+
+        self.assertEqual(bst.toList(), [8,11])
+
+        self.assertEqual(bst.root.val, 11)
+        self.assertTrue(bst.root.left.parent == bst.root)
+
+        self.assertTrue(bst.root.right == None)
+        self.assertTrue(bst.root.parent == None)
+
+    def test_removeNodeWith2Children(self):
+        bst = BinarySearchTree()
+
+        bst.insert(Node(Order(100, 0)))
+        
+        bst.insert(Node(Order(75, 0)))
+        bst.insert(Node(Order(125, 0)))
+
+        bst.insert(Node(Order(65, 0)))
+        bst.insert(Node(Order(85, 0)))
+        bst.insert(Node(Order(115, 0)))
+        bst.insert(Node(Order(150, 0)))
+
+        bst.insert(Node(Order(60, 0)))
+        bst.insert(Node(Order(70, 0)))
+        bst.insert(Node(Order(80, 0)))
+        bst.insert(Node(Order(95, 0)))
+        bst.insert(Node(Order(110, 0)))
+        bst.insert(Node(Order(120, 0)))
+        bst.insert(Node(Order(135, 0)))
+        bst.insert(Node(Order(175, 0)))
+
+        bst.remove(75)
+
+        self.assertTrue(bst.root.val == 100)
+        self.assertTrue(bst.root.left.val == 80)
+        self.assertTrue(bst.root.left.left.val == 65)
+        self.assertTrue(bst.root.left.right.val == 85)
+        self.assertTrue(bst.root.left.right.left == None)
+        self.assertTrue(bst.root.left.right.right.val == 95)
+        
+
+        
+
 
 
 
