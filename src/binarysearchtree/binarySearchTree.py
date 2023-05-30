@@ -107,18 +107,23 @@ class BinarySearchTree:
         return previous   
 
     # Returns nodes inorder
-    def inorderTraversal(self):
+    def inorderTraversal(self, reverse = False):
         lst = []
         def helper(node):
             if node != None:
-                helper(node.left)
-                lst.append(node)
-                helper(node.right)
+                if reverse:
+                    helper(node.right)
+                    lst.append(node)
+                    helper(node.left)
+                else:
+                    helper(node.left)
+                    lst.append(node)
+                    helper(node.right)     
         helper(self.root)
         return lst
 
-    def toList(self):
-        return list(map(lambda node: node.val, self.inorderTraversal()))
+    def toList(self, reverse = False):
+        return list(map(lambda node: node.val, self.inorderTraversal(reverse = reverse)))
 
     def __str__(self): return str(self.toList())
 

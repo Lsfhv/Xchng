@@ -30,3 +30,6 @@ class ObBST(BinarySearchTree):
             # Price level doesnt exist
             return []
 
+    # Find all orders between [Start, End]
+    def getOrdersUptoPrice(self, start, end):
+        pass

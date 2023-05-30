@@ -14,11 +14,16 @@ class TestOrderbook(unittest.TestCase):
         self.order1 = Order(100, 2, "bob", ASK)
         self.order2 = Order(100, 10, "alice", ASK)
 
+        self.order3 = Order(101, 10, "alice", BID)
+
         self.ob.add(self.order1)
         self.ob.add(self.order2)
+        self.ob.add(self.order3)
+
+        self.emptyOB = Orderbook()
 
     def test_orderbookhascorrectlength(self):
-        self.assertEqual(self.ob.size(), 1)
+        self.assertEqual(self.ob.size(), 2)
 
     def test_priceLevelHoldsCorrectAmountOfOrders(self):
         lst = self.ob.priceLevel(100)
@@ -26,20 +31,24 @@ class TestOrderbook(unittest.TestCase):
     
     def test_priceLevelOrdersAreOrderedCorrectly(self):
         lst = self.ob.priceLevel(100)
-
         self.assertEqual(lst[0], self.order1)
         self.assertEqual(lst[1], self.order2) 
 
-    def test_bestAsk(self):
-        lst = self.ob.bestAsk()
-        self.assertEqual(lst, [self.order1, self.order2])  
+    def test_spread(self):
+        self.assertEqual(self.ob.getSpread(), 1)
+        self.ob.add(Order(100.1, 10, "alice", BID))
+        self.assertEqual(round(self.ob.getSpread(), 2), 0.1)
 
-    def test_bestBid(self):
-        lst = self.ob.bestBid()
-        self.assertEqual(lst, [])     
+    def test_spreadEmpty(self):
+        self.assertRaises(Exception, self.emptyOB.getSpread)
 
-        order = Order(20, 0, "bob", BID)
-        self.ob.add(order)
-        lst = self.ob.bestBid()
-        self.assertEqual(lst, [order])
+    def test_instantMatch(self):
+        self.ob.add(Order(101,1, "bob", BID))
+
+        self.assertEqual(self.ob.instantMatch(Order(101,0,"",ASK)), True)
+        self.assertEqual(self.ob.instantMatch(Order(101,0,"",BID)), False)
+        self.assertEqual(self.ob.instantMatch(Order(100,0,"",BID)), True)
+
+        self.assertEqual(self.emptyOB.instantMatch(Order(101, 0, "", ASK)), False)
+        self.assertEqual(self.emptyOB.instantMatch(Order(101, 0, "", BID)), False)
     

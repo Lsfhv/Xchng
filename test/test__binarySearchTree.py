@@ -2,6 +2,7 @@ import unittest
 from src.binarysearchtree.binarySearchTree import BinarySearchTree, Node
 from src.models.order import Order
 
+
 class TestBinarySearchTree(unittest.TestCase):
 
     def setUp(self):
@@ -26,6 +27,9 @@ class TestBinarySearchTree(unittest.TestCase):
 
     def test_bstHasCorrectLength(self):
         self.assertEqual(len(self.bst), 12)
+
+    def test_bstIsSortedReversed(self):
+        self.assertEqual(self.bst.toList(reverse = True), [175, 150, 135, 125, 115, 100, 95, 85, 75, 70, 65, 60])
 
     def test_bstIsSorted(self):
         self.assertEqual(self.bst.toList(), [60, 65, 70, 75, 85, 95, 100, 115, 125, 135, 150, 175])
@@ -187,5 +191,4 @@ class TestBinarySearchTree(unittest.TestCase):
     def test_getMinNodeEmptyBST(self):
         bst = BinarySearchTree()
         self.assertRaises(Exception, bst.getMinNode)
-
     
