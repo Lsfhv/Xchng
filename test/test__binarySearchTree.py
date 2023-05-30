@@ -24,6 +24,9 @@ class TestBinarySearchTree(unittest.TestCase):
         self.bst.insert(Node(Order(135, 0)))
         self.bst.insert(Node(Order(175, 10)))
 
+    def test_inorderOnEmptyBST(self):
+        bst = BinarySearchTree()
+        self.assertEqual(bst.inorderTraversal(), [])
 
     def test_bstHasCorrectLength(self):
         self.assertEqual(len(self.bst), 12)

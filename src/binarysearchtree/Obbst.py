@@ -2,6 +2,10 @@ from src.binarysearchtree.binarySearchTree import BinarySearchTree, Node
 
 class ObBST(BinarySearchTree):
 
+    def __init__(self, side = None):
+        super().__init__()
+        self.side = side
+
     # Adds an order
     def update(self, order):
         node = self.find(order.price)
@@ -30,6 +34,26 @@ class ObBST(BinarySearchTree):
             # Price level doesnt exist
             return []
 
-    # Find all orders between [Start, End]
-    def getOrdersUptoPrice(self, start, end):
-        pass
+    def getOrdersBetweenInterval(self, start, end, side = None):
+        inorder = self.inorderTraversal()
+        if start >= end:
+            temp = end
+            end = start
+            start = temp
+        rtnlst = []
+        lst = filter(lambda node: 
+            node.val >= start and node.val <= end, inorder)
+        
+        for x in lst: rtnlst += x.orders
+        x = filter(lambda order: order.side == side or side == None,rtnlst)
+        return list(x)
+
+    def getOrdersUptoPrice(self, price):
+        # bids, small to large
+        # asks, large to small
+        if self.side == ASK:
+            start = self.getMaxNode().val
+        else:
+            start = self.getMinNode().val
+        
+        self.getOrdersBetweenInterval(start, price)

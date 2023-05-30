@@ -5,8 +5,8 @@ from constants import BID, ASK
 class Orderbook:
 
     def __init__(self):
-        self.bids = ObBST()
-        self.asks = ObBST()
+        self.bids = ObBST(BID)
+        self.asks = ObBST(ASK)
 
     def size(self):
         return len(self.bids) + len(self.asks)
@@ -15,7 +15,10 @@ class Orderbook:
     def add(self, order):
         # Before order is placed, run matching algorithm
         if self.instantMatch(order):
-            pass
+            if order.side == BID:
+                pass
+            elif order.side == ASK:
+                pass
         else:
             if order.side == BID:
                 self.bids.update(order)
