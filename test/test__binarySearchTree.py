@@ -23,6 +23,7 @@ class TestBinarySearchTree(unittest.TestCase):
         self.bst.insert(Node(Order(135, 0)))
         self.bst.insert(Node(Order(175, 10)))
 
+
     def test_bstHasCorrectLength(self):
         self.assertEqual(len(self.bst), 12)
 
@@ -143,11 +144,48 @@ class TestBinarySearchTree(unittest.TestCase):
         self.assertTrue(bst.root.left.right.val == 85)
         self.assertTrue(bst.root.left.right.left == None)
         self.assertTrue(bst.root.left.right.right.val == 95)
+
+    def test_removeNodeWith2ChildrenAgain(self):
+        bst = BinarySearchTree()
+
+        bst.insert(Node(Order(100, 0)))
         
+        bst.insert(Node(Order(75, 0)))
+        bst.insert(Node(Order(125, 0)))
 
-        
+        bst.insert(Node(Order(65, 0)))
+        bst.insert(Node(Order(85, 0)))
+        bst.insert(Node(Order(115, 0)))
+        bst.insert(Node(Order(150, 0)))
 
+        bst.insert(Node(Order(60, 0)))
+        bst.insert(Node(Order(70, 0)))
+        bst.insert(Node(Order(80, 0)))
+        bst.insert(Node(Order(95, 0)))
+        bst.insert(Node(Order(110, 0)))
+        bst.insert(Node(Order(120, 0)))
+        bst.insert(Node(Order(135, 0)))
+        bst.insert(Node(Order(175, 0)))
 
+        bst.remove(100)
 
+        self.assertEqual(bst.toList(), [60, 65, 70, 75, 80, 85, 95, 110, 115, 120, 125, 135, 150, 175])
+        self.assertEqual(bst.root.val, 110)
+
+    def test_getMinNode(self):
+        minVal = self.bst.getMinNode().val
+        self.assertEqual(minVal, 60)
+
+    def test_getMaxNode(self):
+        maxVal = self.bst.getMaxNode().val
+        self.assertEqual(maxVal, 175)
+
+    def test_getMaxNodeEmptyBST(self):
+        bst = BinarySearchTree()
+        self.assertRaises(Exception, bst.getMaxNode)
+
+    def test_getMinNodeEmptyBST(self):
+        bst = BinarySearchTree()
+        self.assertRaises(Exception, bst.getMinNode)
 
     

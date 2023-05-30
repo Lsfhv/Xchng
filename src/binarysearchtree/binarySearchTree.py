@@ -9,7 +9,7 @@ class Node:
 
         self.orders = [T]
 
-
+# Ordering is not gauraunteed in the case the not all nodes have distinct vals.
 class BinarySearchTree:
 
     def __init__(self):
@@ -17,7 +17,6 @@ class BinarySearchTree:
         self.len = 0 
 
     def insert(self, node):
-        self.len += 1;
         if self.root == None:
             self.root = node
         else:
@@ -27,6 +26,8 @@ class BinarySearchTree:
                 target.left = node
             else:
                 target.right = node
+                
+        self.len += 1
 
     def remove(self, key):
         nodeToRemove = self.find(key)
@@ -85,6 +86,8 @@ class BinarySearchTree:
                 parent.left = None
             elif parent != None and parent.right == nodeToRemove:
                 parent.right = None
+
+        self.len -= 1
     
     # Finds element with key and returns it. 
     # If not found, return the node where 
@@ -120,5 +123,25 @@ class BinarySearchTree:
     def __str__(self): return str(self.toList())
 
     def __len__(self): return self.len
+
+    def getMaxNode(self):
+        current = self.root
+        if current == None:
+            raise Exception("Cannot find maximum node of an empty BST")
+        previous = None
+        while current != None:
+            previous = current
+            current = current.right
+        return previous
+
+    def getMinNode(self):
+        current = self.root
+        if current == None:
+            raise Exception("Cannot find minimum node of an empty BST") 
+        previous = None
+        while current != None:
+            previous = current
+            current = current.left
+        return previous
 
     

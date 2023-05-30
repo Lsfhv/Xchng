@@ -19,3 +19,14 @@ class ObBST(BinarySearchTree):
             else:
                 node.right = nodeToInsert 
 
+    def getOrdersAtPrice(self, price):
+        node = self.find(price)
+        if node == None:
+            # No orders
+            return []
+        if node.val == price:
+            return node.orders
+        else:
+            # Price level doesnt exist
+            return []
+
