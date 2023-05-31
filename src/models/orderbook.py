@@ -72,7 +72,8 @@ class Orderbook:
         # print(len(priceLevels))
         while priceLevels and order.size != 0:
             if len(priceLevels[0].orders) == 0:
-                side.remove(pricelLevels[0].val) 
+                print(f"Removed {priceLevels[0].val}")
+                side.remove(priceLevels[0].val) 
             else:
                 counterOrder = priceLevels[0].orders[0]
                 # print(counterOrder.size)
@@ -88,10 +89,8 @@ class Orderbook:
             priceLevels = side.getPriceLevelsUpto(order.price)
 
         if len(priceLevels[0].orders) == 0:
-            # print(priceLevels[0].val)
-            # print(len(side))
+            print(f"Removed {priceLevels[0].val}")
             side.remove(priceLevels[0].val)
-            # print(len(side)) 
-            # print(side.root)
+
         if order.size != 0:
             self.add(order)
