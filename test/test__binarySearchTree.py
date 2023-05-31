@@ -179,6 +179,12 @@ class TestBinarySearchTree(unittest.TestCase):
         self.assertEqual(bst.toList(), [60, 65, 70, 75, 80, 85, 95, 110, 115, 120, 125, 135, 150, 175])
         self.assertEqual(bst.root.val, 110)
 
+    def test_removeRoot(self):
+        bst = BinarySearchTree()
+        bst.insert(Node(Order(100,0)))
+        bst.remove(100)
+        self.assertEqual(bst.root, None)
+
     def test_getMinNode(self):
         minVal = self.bst.getMinNode().val
         self.assertEqual(minVal, 60)

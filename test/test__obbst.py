@@ -56,21 +56,14 @@ class TestBinarySearchTree(unittest.TestCase):
         self.assertTrue(ob.root.left == None)
         self.assertTrue(ob.root.right == None)
         
-    def test_getOrdersBetweenInterval(self):
-        ob = ObBST()
-        order1 = Order(100, 0)
-        order2 = Order(90, 0)
-        order3 = Order(101, 0)
-        order4 = Order(20, 0)
-        ob.update(order1)
-        ob.update(order2)
-        ob.update(order3)
-        ob.update(order4)
+    def test_getPriceLevelsUptoAsk(self):
+        asks = self.orderbookASK.getPriceLevelsUpto(70)
+        for i in range(0, len(asks) - 1):
+            self.assertTrue(asks[i] > asks[i+1]) # Decreasing
+        self.assertEqual(len(asks), 30)
 
-        self.assertEqual(ob.getOrdersBetweenInterval(100, 90), ob.getOrdersBetweenInterval(90, 100))
-        
-        self.assertEqual(ob.getOrdersBetweenInterval(100, 100), [order1])
-        self.assertEqual(ob.getOrdersBetweenInterval(102, 102), [])
-
-    def test_getOrdersUptoPrice(self):
-        pass
+    def test_getPriceLevelsUptoBid(self):
+        bids = self.orderbookBID.getPriceLevelsUpto(70)
+        for i in range(0, len(bids) - 1):
+            self.assertTrue(bids[i] < bids[i+1]) # increasing
+        self.assertEqual(len(bids), 21)

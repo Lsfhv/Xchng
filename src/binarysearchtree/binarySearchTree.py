@@ -9,6 +9,12 @@ class Node:
 
         self.orders = [T]
 
+    def __gt__(self, other):
+        return self.val > other.val
+    
+    def __lt__(self, other):
+        return self.val < other.val
+
 # Ordering is not gauraunteed in the case the not all nodes have distinct vals.
 class BinarySearchTree:
 
@@ -86,6 +92,8 @@ class BinarySearchTree:
                 parent.left = None
             elif parent != None and parent.right == nodeToRemove:
                 parent.right = None
+            if self.root == nodeToRemove:
+                self.root = None
 
         self.len -= 1
     

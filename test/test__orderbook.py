@@ -13,7 +13,6 @@ class TestOrderbook(unittest.TestCase):
         self.ob = Orderbook()
         self.order1 = Order(100, 2, "bob", ASK)
         self.order2 = Order(100, 10, "alice", ASK)
-
         self.order3 = Order(101, 10, "alice", BID)
 
         self.ob.add(self.order1)
@@ -51,4 +50,9 @@ class TestOrderbook(unittest.TestCase):
 
         self.assertEqual(self.emptyOB.instantMatch(Order(101, 0, "", ASK)), False)
         self.assertEqual(self.emptyOB.instantMatch(Order(101, 0, "", BID)), False)
-    
+
+
+    def test_match(self):
+        order4 = Order(100, 12, None, BID)
+        self.ob.add(order4)
+        # print(self.ob.asks.root.val)

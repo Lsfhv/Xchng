@@ -15,10 +15,7 @@ class Orderbook:
     def add(self, order):
         # Before order is placed, run matching algorithm
         if self.instantMatch(order):
-            if order.side == BID:
-                pass
-            elif order.side == ASK:
-                pass
+            self.match(order)
         else:
             if order.side == BID:
                 self.bids.update(order)
@@ -65,3 +62,36 @@ class Orderbook:
             return True
         else: return False
     
+    def match(self, order):
+        if order.side == BID:
+            side = self.asks
+        elif order.side == ASK:
+            side = self.bids
+        
+        priceLevels = side.getPriceLevelsUpto(order.price)
+        # print(len(priceLevels))
+        while priceLevels and order.size != 0:
+            if len(priceLevels[0].orders) == 0:
+                side.remove(pricelLevels[0].val) 
+            else:
+                counterOrder = priceLevels[0].orders[0]
+                # print(counterOrder.size)
+                amountToTrade = min(order.size, counterOrder.size)
+                # print(amountToTrade)
+                order.size -= amountToTrade 
+                counterOrder.size -= amountToTrade
+
+                if counterOrder.size == 0:
+                    priceLevels[0].orders.pop(0)
+            # if len(priceLevels[0].orders) == 0:
+            #     side.remove(pricelLevels[0].val) 
+            priceLevels = side.getPriceLevelsUpto(order.price)
+
+        if len(priceLevels[0].orders) == 0:
+            # print(priceLevels[0].val)
+            # print(len(side))
+            side.remove(priceLevels[0].val)
+            # print(len(side)) 
+            # print(side.root)
+        if order.size != 0:
+            self.add(order)

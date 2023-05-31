@@ -1,4 +1,5 @@
 from src.binarysearchtree.binarySearchTree import BinarySearchTree, Node
+from constants import BID, ASK
 
 class ObBST(BinarySearchTree):
 
@@ -34,26 +35,33 @@ class ObBST(BinarySearchTree):
             # Price level doesnt exist
             return []
 
-    def getOrdersBetweenInterval(self, start, end, side = None):
-        inorder = self.inorderTraversal()
+    # def getOrdersBetweenInterval(self, start, end, side = None):
+    #     inorder = self.inorderTraversal()
+    #     if start >= end:
+    #         temp = end
+    #         end = start
+    #         start = temp
+    #     rtnlst = []
+    #     lst = filter(lambda node: 
+    #         node.val >= start and node.val <= end, inorder)
+        
+    #     for x in lst: rtnlst += x.orders
+    #     x = filter(lambda order: order.side == side or side == None,rtnlst)
+    #     return list(x)
+
+    def getPriceLevelsBetween(self, start, end):
+        inorder = self.inorderTraversal(self.side == ASK)
         if start >= end:
             temp = end
             end = start
             start = temp
-        rtnlst = []
-        lst = filter(lambda node: 
-            node.val >= start and node.val <= end, inorder)
-        
-        for x in lst: rtnlst += x.orders
-        x = filter(lambda order: order.side == side or side == None,rtnlst)
-        return list(x)
 
-    def getOrdersUptoPrice(self, price):
-        # bids, small to large
-        # asks, large to small
+        return list(filter(lambda node: 
+            node.val >= start and node.val <= end, inorder))
+        
+    def getPriceLevelsUpto(self, price):
         if self.side == ASK:
             start = self.getMaxNode().val
         else:
             start = self.getMinNode().val
-        
-        self.getOrdersBetweenInterval(start, price)
+        return self.getPriceLevelsBetween(start, price)
