@@ -66,7 +66,6 @@ class BinarySearchTree:
             minOfRightSubTree.parent = parent
             minOfRightSubTree.left = leftChild
             minOfRightSubTree.right = rightChild
-
         elif nodeToRemove.left != None or nodeToRemove.right != None:
             # Node to remove has 1 child
 
@@ -85,6 +84,7 @@ class BinarySearchTree:
                     parent.left = subTree
                 elif parent.right == nodeToRemove:
                     parent.right = subTree
+            self.len -= 1
         else:
             # Node to remove has 0 children (leaf)
             nodeToRemove.parent = None
@@ -94,8 +94,7 @@ class BinarySearchTree:
                 parent.right = None
             if self.root == nodeToRemove:
                 self.root = None
-
-        self.len -= 1
+            self.len -= 1
     
     # Finds element with key and returns it. 
     # If not found, return the node where 

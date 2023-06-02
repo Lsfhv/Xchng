@@ -37,18 +37,18 @@ class Orderbook:
             return 0
 
     # Returns all orders at a level, bids and asks
-    def priceLevel(self, price):
-        bids = self.bids.getOrdersAtPrice(price)
-        asks = self.asks.getOrdersAtPrice(price)
-        return bids + asks
+    # def priceLevel(self, price):
+    #     bids = self.bids.getOrdersAtPrice(price)
+    #     asks = self.asks.getOrdersAtPrice(price)
+    #     return bids + asks
 
-    def getSpread(self):
-        try:
-            x = self.bids.getMinNode().val
-            y = self.asks.getMaxNode().val
-            return x - y
-        except:
-            raise Exception("One side of the orderbook is empty")
+    # def getSpread(self):
+    #     try:
+    #         x = self.bids.getMinNode().val
+    #         y = self.asks.getMaxNode().val
+    #         return x - y
+    #     except:
+    #         raise Exception("One side of the orderbook is empty")
 
     # True or false if an order will be instantly matched
     def instantMatch(self, order):
@@ -69,28 +69,22 @@ class Orderbook:
             side = self.bids
         
         priceLevels = side.getPriceLevelsUpto(order.price)
-        # print(len(priceLevels))
-        while priceLevels and order.size != 0:
+        while len(priceLevels) != 0 and order.size != 0:
             if len(priceLevels[0].orders) == 0:
-                print(f"Removed {priceLevels[0].val}")
                 side.remove(priceLevels[0].val) 
             else:
                 counterOrder = priceLevels[0].orders[0]
-                # print(counterOrder.size)
                 amountToTrade = min(order.size, counterOrder.size)
-                # print(amountToTrade)
                 order.size -= amountToTrade 
                 counterOrder.size -= amountToTrade
 
                 if counterOrder.size == 0:
                     priceLevels[0].orders.pop(0)
-            # if len(priceLevels[0].orders) == 0:
-            #     side.remove(pricelLevels[0].val) 
             priceLevels = side.getPriceLevelsUpto(order.price)
-
-        if len(priceLevels[0].orders) == 0:
-            print(f"Removed {priceLevels[0].val}")
+            
+        if priceLevels and len(priceLevels[0].orders) == 0:
             side.remove(priceLevels[0].val)
 
         if order.size != 0:
+            # print(order)
             self.add(order)

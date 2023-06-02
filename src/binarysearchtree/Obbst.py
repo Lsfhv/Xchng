@@ -3,8 +3,10 @@ from constants import BID, ASK
 
 class ObBST(BinarySearchTree):
 
-    def __init__(self, side = None):
+    def __init__(self, side):
         super().__init__()
+        if side != BID and side != ASK:
+            raise TypeError("SIDE MUST TAKE BID OR ASK")
         self.side = side
 
     # Adds an order
@@ -24,16 +26,16 @@ class ObBST(BinarySearchTree):
             else:
                 node.right = nodeToInsert 
 
-    def getOrdersAtPrice(self, price):
-        node = self.find(price)
-        if node == None:
-            # No orders
-            return []
-        if node.val == price:
-            return node.orders
-        else:
-            # Price level doesnt exist
-            return []
+    # def getOrdersAtPrice(self, price):
+    #     node = self.find(price)
+    #     if node == None:
+    #         # No orders
+    #         return []
+    #     if node.val == price:
+    #         return node.orders
+    #     else:
+    #         # Price level doesnt exist
+    #         return []
 
     # def getOrdersBetweenInterval(self, start, end, side = None):
     #     inorder = self.inorderTraversal()
@@ -49,19 +51,29 @@ class ObBST(BinarySearchTree):
     #     x = filter(lambda order: order.side == side or side == None,rtnlst)
     #     return list(x)
 
-    def getPriceLevelsBetween(self, start, end):
-        inorder = self.inorderTraversal(self.side == ASK)
-        if start >= end:
-            temp = end
-            end = start
-            start = temp
+    # def getPriceLevelsBetween(self, start, end):
+    #     inorder = self.inorderTraversal(self.side == ASK)
+    #     if self.side == ASK:
 
-        return list(filter(lambda node: 
-            node.val >= start and node.val <= end, inorder))
+    #         return list(filter(lambda node: 
+    #             node.val <= start and node.val >= end, inorder))
+    #     else :
+    #         return list(filter(lambda node: 
+    #             node.val >= start and node.val <= end, inorder))
         
     def getPriceLevelsUpto(self, price):
         if self.side == ASK:
             start = self.getMaxNode().val
         else:
             start = self.getMinNode().val
-        return self.getPriceLevelsBetween(start, price)
+        return self.between(start, price)
+
+
+    def getPriceLevelsBetween(self, start, end):
+        inorder = self.inorderTraversal(self.side == ASK)
+        if self.side == ASK:
+            return list(filter(lambda node: 
+                node.val <= start and node.val >= end, inorder))
+        else :
+            return list(filter(lambda node: 
+                node.val >= start and node.val <= end, inorder))
