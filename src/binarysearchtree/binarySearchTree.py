@@ -156,4 +156,8 @@ class BinarySearchTree:
             current = current.left
         return previous
 
+    # Returns True if BST is empty
+    def empty(self):
+        if self.root == None: return True
+        else: return False
     

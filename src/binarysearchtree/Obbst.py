@@ -11,6 +11,9 @@ class ObBST(BinarySearchTree):
 
     # Adds an order
     def update(self, order):
+        if order.side != self.side:
+            raise TypeError("Order side doesnt match the side of this bst")
+
         node = self.find(order.price)
 
         if node == None:
@@ -25,55 +28,33 @@ class ObBST(BinarySearchTree):
                 node.left = nodeToInsert
             else:
                 node.right = nodeToInsert 
-
-    # def getOrdersAtPrice(self, price):
-    #     node = self.find(price)
-    #     if node == None:
-    #         # No orders
-    #         return []
-    #     if node.val == price:
-    #         return node.orders
-    #     else:
-    #         # Price level doesnt exist
-    #         return []
-
-    # def getOrdersBetweenInterval(self, start, end, side = None):
-    #     inorder = self.inorderTraversal()
-    #     if start >= end:
-    #         temp = end
-    #         end = start
-    #         start = temp
-    #     rtnlst = []
-    #     lst = filter(lambda node: 
-    #         node.val >= start and node.val <= end, inorder)
-        
-    #     for x in lst: rtnlst += x.orders
-    #     x = filter(lambda order: order.side == side or side == None,rtnlst)
-    #     return list(x)
-
-    # def getPriceLevelsBetween(self, start, end):
-    #     inorder = self.inorderTraversal(self.side == ASK)
-    #     if self.side == ASK:
-
-    #         return list(filter(lambda node: 
-    #             node.val <= start and node.val >= end, inorder))
-    #     else :
-    #         return list(filter(lambda node: 
-    #             node.val >= start and node.val <= end, inorder))
         
     def getPriceLevelsUpto(self, price):
-        if self.side == ASK:
-            start = self.getMaxNode().val
-        else:
-            start = self.getMinNode().val
-        return self.between(start, price)
+        try:
+            start = self.getBestPrice()
+        except:
+            return []
+        return self.getPriceLevelsBetween(start, price)
 
-
+    # if bids, start >= end
+    # if asks, start <= end
+    # otherwise, return empty list
+    # for bids, list return goes from larger -> small
+    # for asks, list return goes from small -> largeer
     def getPriceLevelsBetween(self, start, end):
-        inorder = self.inorderTraversal(self.side == ASK)
+        inorder = self.inorderTraversal(self.side == BID)
         if self.side == ASK:
-            return list(filter(lambda node: 
-                node.val <= start and node.val >= end, inorder))
-        else :
             return list(filter(lambda node: 
                 node.val >= start and node.val <= end, inorder))
+        else :
+            return list(filter(lambda node: 
+                node.val <= start and node.val >= end, inorder))
+
+    def getBestPrice(self):
+        try:
+            if self.side == ASK:
+                return self.getMinNode().val
+            elif self.side == BID:
+                return self.getMaxNode().val
+        except:
+            raise Exception(f"{self.side} is empty")
