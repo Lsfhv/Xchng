@@ -65,8 +65,7 @@ class TestOrderbook(unittest.TestCase):
         self.assertRaises(Exception, self.orderbook.bids.getBestPrice)  
         self.assertEqual(self.orderbook.asks.getBestPrice(), 30)   
         self.assertTrue(self.orderbook.bids.empty())
-        # print(self.orderbook.bids.len)
-        # self.assertTrue(len(self.orderbook.bids) == 0)
+
         # No bids remaining
 
         self.orderbook.match(Order(1000, 1, BID))
@@ -81,9 +80,15 @@ class TestOrderbook(unittest.TestCase):
         self.assertRaises(Exception, self.orderbook.bids.getBestPrice)  
         self.assertRaises(Exception, self.orderbook.asks.getBestPrice)  
 
+        # No asks remaining
         
         self.assertTrue(self.orderbook.bids.empty())
         self.assertTrue(self.orderbook.asks.empty())
+
+        self.assertTrue(len(self.orderbook.bids) == 0)
+        self.assertTrue(len(self.orderbook.asks) == 0)
+
+
 
 
 

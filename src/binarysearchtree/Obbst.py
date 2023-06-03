@@ -16,18 +16,10 @@ class ObBST(BinarySearchTree):
 
         node = self.find(order.price)
 
-        if node == None:
+        if node == None or node.val != order.price:
             self.insert(Node(order))
-        elif node.val == order.price:
-            node.orders.append(order)
         else:
-            # Price level doesnt exist so add it 
-            nodeToInsert = Node(order)
-            nodeToInsert.parent = node
-            if nodeToInsert.val <= node.val:
-                node.left = nodeToInsert
-            else:
-                node.right = nodeToInsert 
+            node.orders.append(order)
         
     def getPriceLevelsUpto(self, price):
         try:

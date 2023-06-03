@@ -26,6 +26,10 @@ class TestBinarySearchTree(unittest.TestCase):
         self.lst = [100, 75, 125, 65, 85, 115, 150, 60,70,95,135,175]
         self.length = 12
 
+        self.bst2 = BinarySearchTree()
+        for i in range(0, 20 + 1):
+            self.bst2.insert(Node(Order(i + 50, 10, ASK)))
+
     def testRemovingAllNodesFromBST(self):
         self.assertEqual(len(self.bst), self.length)
         for i in self.lst:
@@ -48,4 +52,7 @@ class TestBinarySearchTree(unittest.TestCase):
         self.assertEqual(self.bst.getMinNode().val, 60)
         self.bst.remove(175)
         self.assertEqual(self.bst.getMaxNode().val, 150)
+
+    def testBSTLengthAfterRemovals(self):
+        pass
     

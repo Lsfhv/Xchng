@@ -95,6 +95,9 @@ class BinarySearchTree:
             if self.root == nodeToRemove:
                 self.root = None
             self.len -= 1
+
+        # print("Called once", self.len)
+
     
     # Finds element with key and returns it. 
     # If not found, return the node where 
