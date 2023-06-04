@@ -42,6 +42,7 @@ class ObBST(BinarySearchTree):
             return list(filter(lambda node: 
                 node.val <= start and node.val >= end, inorder))
 
+    # Returns the best price, exception in the case that it is empty
     def getBestPrice(self):
         try:
             if self.side == ASK:

@@ -21,6 +21,21 @@ class TestOrderbook(unittest.TestCase):
         for i in self.asks:
             self.orderbook.match(i)
 
+    def testOrderbookAddEdgeCases(self):
+        orderbook = Orderbook()
+        orderbook.match(Order(10, 1, BID))
+        orderbook.match(Order(9, 1, ASK))
+
+        self.assertEqual(orderbook.bids.root, None)
+        self.assertEqual(orderbook.asks.root, None)
+
+        orderbook.match(Order(10, 1, BID))
+        orderbook.match(Order(9, 2, ASK))
+
+        self.assertEqual(orderbook.bids.root, None)
+        self.assertEqual(orderbook.asks.getBestPrice(), 9)
+        self.assertEqual(orderbook.asks.getMinNode().orders[0].size, 1)
+
     def testOrderbookIsInitalisedCorrectlyAndMakeATradeThenMakesItsCounterTrade(self):
         self.assertEqual(self.orderbook.bids.getBestPrice(), 40)   
         self.assertEqual(self.orderbook.asks.getBestPrice(), 50) 

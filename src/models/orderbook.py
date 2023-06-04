@@ -2,6 +2,9 @@ from src.binarysearchtree.Obbst import ObBST
 from src.models.order import Order
 from constants import BID, ASK
 
+import logging
+from src.data.getOrderbookSnapshot import getSnapshot
+
 class Orderbook:
     
     def __init__(self):
@@ -39,6 +42,14 @@ class Orderbook:
             if len(priceLevels[0].orders) == 0:
                 side.remove(priceLevels[0].val)
             priceLevels = side.getPriceLevelsUpto(order.price)
-            
         if order.size != 0:
             add(order)
+
+    # Fills the orderbook with data from an exchange 
+    def fillOrderbook(self):
+        for i in getSnapshot():
+            for j in i:
+                self.match(j)
+
+
+  

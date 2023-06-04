@@ -1,5 +1,5 @@
 # Tests
 
-Run tests with `python3 -m unittest discover test`
+Run all tests with `python3 -m unittest discover test`
 
-Name test files with "test__*.py"
+Run specific tests with `python3 -m unittest discover test -p "filename.py"`

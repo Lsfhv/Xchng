@@ -9,6 +9,5 @@ class Order:
         self.side = side
         self.userId = userId
 
-
     def __str__(self):
         return f"[price: {self.price}, size: {self.size}, userId: {self.userId}, side: {self.side}]"
