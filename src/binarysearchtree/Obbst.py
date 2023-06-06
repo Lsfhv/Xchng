@@ -54,13 +54,11 @@ class ObBST(BinarySearchTree):
         except:
             raise Exception(f"{self.side} is empty")
 
-    # Get all orders sorted by price
-    # json = true to return the orders in json
+    # Get [depth many] orders sorted by price
+    # json = true to return orders in json
     # else the order object
-    def getAllOrders(self, json = False):
+    def getAllOrders(self, depth = None, json = False):
         nodes = self.inorderTraversal(reverse = self.side == BID) # if bid, return max to min
-        orders = reduce(lambda x, y: x + y, map(lambda node: node.orders ,nodes), [])
-        if json:
-            return list(map(lambda order: order.json(), orders))
-        else:
-            return orders
+        orders = reduce(lambda x, y: x + y, map(lambda node: node.orders ,nodes), [])[:(lambda d: None if depth == None else depth)(depth)]
+        if json: return list(map(lambda order: order.json(), orders))
+        else: return orders

@@ -166,3 +166,12 @@ class TestOrderbookBST(unittest.TestCase):
         self.assertEqual(ObBST(side = BID).getAllOrders(), [])
         self.assertEqual(ObBST(side = ASK).getAllOrders(), [])
 
+        # depth parameter
+        self.assertEqual(len(self.bstBID.getAllOrders(depth = 10)), 10)
+        self.assertEqual(len(self.bstBID.getAllOrders(depth = None)), 22)
+
+        orders = self.bstBID.getAllOrders(depth = 10) 
+        for i in range(0, len(orders) - 1) : 
+            self.assertTrue(orders[i].price >= orders[i + 1].price) # inserted another 70 so there is equality now
+
+

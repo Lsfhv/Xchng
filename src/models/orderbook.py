@@ -2,7 +2,6 @@ from src.binarysearchtree.Obbst import ObBST
 from src.models.order import Order
 from constants import BID, ASK
 
-import logging
 from src.data.getOrderbookSnapshot import getSnapshot
 import json
 
@@ -47,9 +46,9 @@ class Orderbook:
             add(order)
 
     # Returns the bids and asks in json format
-    def getOrderbook(self):
-        bids = self.bids.getAllOrders(json = True)
-        asks = self.asks.getAllOrders(json = True)
+    def getOrderbook(self, depth = None):
+        bids = self.bids.getAllOrders(json = True, depth = depth)
+        asks = self.asks.getAllOrders(json = True, depth = depth)
         dictionaryOfBidAndAsk = {'bids' : bids, 'asks' : asks}
         return json.dumps(dictionaryOfBidAndAsk)
 

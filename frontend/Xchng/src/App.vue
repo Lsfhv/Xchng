@@ -3,6 +3,12 @@ import { reactive } from 'vue'
 import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
 import Orderbook from './components/Orderbook.vue';
+import Navbar from './components/Navbar.vue'
+
+// export default {
+//   data() {return {title:"hi"}}
+// }
+
 </script>
 
 <template>
@@ -15,13 +21,28 @@ import Orderbook from './components/Orderbook.vue';
   </header> -->
 
   <main>
-    <!-- <TheWelcome /> -->
-    <Orderbook/>
+    <div id="mm">
+      <div>hi</div>
+      <div><Orderbook/></div>
+    </div>
   </main>
+
 </template>
 
 <style scoped>
-header {
+
+baka {
+  font-size: 20px;
+}
+
+#mm {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+/* header {
   line-height: 1.5;
 }
 
@@ -47,4 +68,10 @@ header {
     flex-wrap: wrap;
   }
 }
+
+h1 {
+  display: inline-block;
+  border-bottom: 1px solid #0e0e0f;
+  padding-top: 100px;
+} */
 </style>

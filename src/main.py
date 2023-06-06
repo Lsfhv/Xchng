@@ -23,7 +23,7 @@ def index():
 def getOrderbook():
     return orderbook.getOrderbook()
 
-app.run()
+# app.run()
 
 # orderbook = Orderbook()
 
