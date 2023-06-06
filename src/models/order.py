@@ -10,4 +10,8 @@ class Order:
         self.userId = userId
 
     def __str__(self):
-        return f"[price: {self.price}, size: {self.size}, userId: {self.userId}, side: {self.side}]"
+        return f"{{price: {self.price}, size: {self.size}, userId: {self.userId}, side: {self.side}}}"
+
+    # Returns in json
+    def json(self):
+        return self.__str__()

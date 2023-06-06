@@ -4,6 +4,7 @@ from constants import BID, ASK
 
 import logging
 from src.data.getOrderbookSnapshot import getSnapshot
+import json
 
 class Orderbook:
     
@@ -44,6 +45,13 @@ class Orderbook:
             priceLevels = side.getPriceLevelsUpto(order.price)
         if order.size != 0:
             add(order)
+
+    # Returns the bids and asks in json format
+    def getOrderbook(self):
+        bids = self.bids.getAllOrders(json = True)
+        asks = self.asks.getAllOrders(json = True)
+        dictionaryOfBidAndAsk = {'bids' : bids, 'asks' : asks}
+        return json.dumps(dictionaryOfBidAndAsk)
 
     # Fills the orderbook with data from an exchange 
     def fillOrderbook(self):

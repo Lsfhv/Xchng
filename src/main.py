@@ -9,13 +9,21 @@ app = Flask(__name__)
 orderbook = Orderbook()
 orderbook.fillOrderbook()
 
+# print(orderbook.getOrderbook())
+
 @app.route('/')
 def index():
-  return 'Server Works!'
+    return 'Server Works!'
   
-@app.route('/greet')
-def say_hello():
-  return str(orderbook.bids.getBestPrice())
+# @app.route('/greet')
+# def say_hello():
+#   return str(orderbook.bids.getBestPrice())
+
+@app.route('/orderbook')
+def getOrderbook():
+    return orderbook.getOrderbook()
+
+app.run()
 
 # orderbook = Orderbook()
 
@@ -24,4 +32,4 @@ def say_hello():
 # print(orderbook.bids.getBestPrice(), orderbook.asks.getBestPrice())
 # print(orderbook.asks.len)
 
-# export PYTHONPATH="${PYTHONPATH}:/home/lsfhv/seagrate4tbhdd/Xchng"
+# export PYTHONPATH="${PYTHONPATH}:${pwd}"

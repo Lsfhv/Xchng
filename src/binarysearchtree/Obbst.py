@@ -1,6 +1,8 @@
 from src.binarysearchtree.binarySearchTree import BinarySearchTree, Node
 from constants import BID, ASK
 
+from functools import reduce
+
 class ObBST(BinarySearchTree):
 
     def __init__(self, side):
@@ -51,3 +53,14 @@ class ObBST(BinarySearchTree):
                 return self.getMaxNode().val
         except:
             raise Exception(f"{self.side} is empty")
+
+    # Get all orders sorted by price
+    # json = true to return the orders in json
+    # else the order object
+    def getAllOrders(self, json = False):
+        nodes = self.inorderTraversal(reverse = self.side == BID) # if bid, return max to min
+        orders = reduce(lambda x, y: x + y, map(lambda node: node.orders ,nodes), [])
+        if json:
+            return list(map(lambda order: order.json(), orders))
+        else:
+            return orders

@@ -143,4 +143,26 @@ class TestOrderbookBST(unittest.TestCase):
         self.assertRaises(TypeError, self.bstASK.update, args = [Order(10,10,BID)])
         self.assertRaises(TypeError, self.bstBID.update, args = [Order(10,10,ASK)])
 
+    def testGetAllOrders(self):
+        orders = self.bstBID.getAllOrders()
+        self.assertEqual(orders[0].price, 70)
+        self.assertEqual(orders[-1].price, 50)
+        for i in range(0, len(orders) - 1) :
+            self.assertTrue(orders[i].price > orders[i + 1].price)
+
+        orders = self.bstASK.getAllOrders()
+        self.assertEqual(orders[0].price, 20)
+        self.assertEqual(orders[-1].price, 40)
+        for i in range(0, len(orders) - 1) :
+            self.assertTrue(orders[i].price < orders[i + 1].price)
+
+        self.bstBID.update(Order(70, 100, BID))
+        orders = self.bstBID.getAllOrders()
+        
+        self.assertEqual(orders[1].price, 70)
+        self.assertEqual(orders[1].size, 100)
+
+        # Empty books
+        self.assertEqual(ObBST(side = BID).getAllOrders(), [])
+        self.assertEqual(ObBST(side = ASK).getAllOrders(), [])
 
