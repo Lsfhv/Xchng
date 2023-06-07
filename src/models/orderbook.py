@@ -47,8 +47,8 @@ class Orderbook:
 
     # Returns the bids and asks in json format
     def getOrderbook(self, depth = None):
-        bids = self.bids.getAllOrders(json = True, depth = depth)
-        asks = self.asks.getAllOrders(json = True, depth = depth)
+        bids = self.bids.getAllOrders(depth, json = True)
+        asks = self.asks.getAllOrders(depth, json = True)
         dictionaryOfBidAndAsk = {'bids' : bids, 'asks' : asks}
         return json.dumps(dictionaryOfBidAndAsk)
 
