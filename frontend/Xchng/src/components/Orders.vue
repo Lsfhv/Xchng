@@ -1,25 +1,23 @@
+<script setup lang="ts">
+var props = defineProps(['title', 'side'])
+</script>
+
 <template>
 <div class="box">
-    <ul class="orderss">
-      <li>something</li>
-      <li>something</li>
-      <li>something</li>
-      <li>something</li>
-      <li>something</li>
-      <li>something</li>
-      <li>something</li>
-      <li>something</li>
-      <li>something</li>
-      <li>something</li><li>something</li><li>something</li><li>something</li><li>something</li><li>something</li><li>something</li><li>something</li><li>something</li><li>something</li><li>something</li><li>something</li><li>something</li><li>something</li><li>something</li><li>something</li><li>something</li><li>something</li>
+    <ul class="orderss" v-bind:style="[(props.side == 'ASK') ? 'color:red' : 'color:green']">
+      <li v-for="item in title">
+        {{ item['price'] }}, {{ item['size'] }}
+      </li>
     </ul>
   </div>
 </template>
 
 <style>
 .orderss {
-    /* style="width: 200px; height: 200px; overflow: auto" */
-    width:200px;
+    width:300px;
     height: 400px;
     overflow:auto;
+    list-style: none;
 }
+
 </style>

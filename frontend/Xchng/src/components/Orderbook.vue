@@ -4,31 +4,35 @@ import axios from 'axios';
 
 import Orders from './Orders.vue'
 
-var x = reactive({data:null});
+var x = reactive({bids:0, asks:null});
 
 axios.get("http://localhost:5000/orderbook")
   .then((response) => {
-    x.data = response.data
+
+    x.bids = response.data['bids']
+    x.asks = response.data['asks']
+
   })
   .catch((error) => {console.log(error);});
 
 </script>
+<!-- <Suspense> -->
 
-<template>
-    <div class="orderbook">
-        <div class="bidsTable">Bids table</div>
+  <template>
+      <div class="orderbook">
+          <div class="asksTable">Asks Table</div>
 
-        <div class="bids"><Orders/></div>
+          <div class="asks"><Orders v-bind:title="x['asks']" side="ASK"/></div>
 
-        <div class="mutualData">Mutual data</div>
+          <div class="mutualData">Mutual data</div>
 
-        <div class="asksTable">{{ x }}</div>
+          <div class="bidsTable">Bids Table</div>
 
-        <div class="asks"><Orders/></div>
-    </div>
-</template>
+          <div class="bids"><Orders v-bind:title="x['bids']" side="BID"/></div>
+      </div>
+  </template>
 
-
+<!-- </Suspense> -->
 
 
 

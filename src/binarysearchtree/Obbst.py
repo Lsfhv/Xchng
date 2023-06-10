@@ -60,5 +60,5 @@ class ObBST(BinarySearchTree):
     def getAllOrders(self, depth = None, json = False):
         nodes = self.inorderTraversal(reverse = self.side == BID) # if bid, return max to min
         orders = reduce(lambda x, y: x + y, map(lambda node: node.orders ,nodes), [])[:(lambda d: None if depth == None else depth)(depth)]
-        if json: return list(map(lambda order: order.json(), orders))
+        if json: return list(map(lambda order: order.toDict(), orders))
         else: return orders

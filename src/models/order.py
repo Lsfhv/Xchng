@@ -9,9 +9,12 @@ class Order:
         self.side = side
         self.userId = userId
 
+    def toDict(self):
+        return {"price":self.price, "size":self.size, "side":self.side,"userId":self.userId} 
+
     def __str__(self):
-        return f"{{price: {self.price}, size: {self.size}, userId: {self.userId}, side: {self.side}}}"
+        return self.json()
 
     # Returns in json
     def json(self):
-        return self.__str__()
+        return {"price":self.price, "size":self.size, "side":self.side,"userId":self.userId}
