@@ -18,6 +18,7 @@ var props = defineProps(['title', 'side'])
     height: 400px;
     overflow:auto;
     list-style: none;
+    padding-left:0;
 }
 
 </style>

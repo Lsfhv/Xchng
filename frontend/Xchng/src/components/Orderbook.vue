@@ -20,13 +20,13 @@ axios.get("http://localhost:5000/orderbook")
 
   <template>
       <div class="orderbook">
-          <div class="asksTable">Asks Table</div>
+          <div class="asksTable">Asks</div>
 
           <div class="asks"><Orders v-bind:title="x['asks']" side="ASK"/></div>
 
-          <div class="mutualData">Mutual data</div>
+          <!-- <div class="mutualData">Mutual data</div> -->
 
-          <div class="bidsTable">Bids Table</div>
+          <div class="bidsTable">Bids</div>
 
           <div class="bids"><Orders v-bind:title="x['bids']" side="BID"/></div>
       </div>

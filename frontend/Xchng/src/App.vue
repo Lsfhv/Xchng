@@ -4,6 +4,7 @@ import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
 import Orderbook from './components/Orderbook.vue';
 import Navbar from './components/Navbar.vue'
+import AddOrder from './components/AddOrder.vue'
 
 // export default {
 //   data() {return {title:"hi"}}
@@ -12,17 +13,9 @@ import Navbar from './components/Navbar.vue'
 </script>
 
 <template>
-  <!-- <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header> -->
-
   <main>
     <div id="mm">
-      <div>hi</div>
+      <div><AddOrder/></div>
       <div><Orderbook/></div>
     </div>
   </main>
@@ -31,15 +24,14 @@ import Navbar from './components/Navbar.vue'
 
 <style scoped>
 
-baka {
-  font-size: 20px;
-}
+
 
 #mm {
   display: flex;
   align-items: stretch;
   gap: 10px;
   justify-content: space-between;
+  /* background-color: black; */
 }
 
 /* header {

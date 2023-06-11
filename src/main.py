@@ -4,7 +4,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import time
 from flask_cors import CORS, cross_origin
 
-from flask import Flask
+from flask import Flask, request
 
 app = Flask(__name__)
 
@@ -31,6 +31,11 @@ def index():
 @cross_origin()
 def getOrderbook():
     return orderbook.getOrderbook()
+
+@app.route('/placeorder', methods = ['PUT'])
+def placeOrder():
+    # print(request.json())
+    return 0
 
 
 app.run()

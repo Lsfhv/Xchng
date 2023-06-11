@@ -49,6 +49,7 @@ class Orderbook:
     def getOrderbook(self, depth = None):
         bids = self.bids.getAllOrders(depth, json = True)
         asks = self.asks.getAllOrders(depth, json = True)
+        asks.reverse()
         dictionaryOfBidAndAsk = {'bids' : bids, 'asks' : asks}
         return json.dumps(dictionaryOfBidAndAsk)
 
