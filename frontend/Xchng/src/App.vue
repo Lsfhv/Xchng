@@ -16,7 +16,17 @@ import AddOrder from './components/AddOrder.vue'
   <main>
     <div id="mm">
       <div><AddOrder/></div>
-      <div><Orderbook/></div>
+      <div>
+        <Suspense>
+          <template #default>
+            <Orderbook/>
+          </template>
+          <template #fallback>
+            LOADING
+          </template>
+        </Suspense>
+      </div>
+
     </div>
   </main>
 

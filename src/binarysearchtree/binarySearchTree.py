@@ -1,3 +1,5 @@
+from functools import reduce
+
 class Node:
     def __init__(self, T):
         
@@ -14,6 +16,9 @@ class Node:
     
     def __lt__(self, other):
         return self.val < other.val
+    
+    def totalSize(self): 
+        return reduce(lambda x,y: x + y.size ,self.orders, 0)
 
 # Ordering is not gauraunteed in the case the not all nodes have distinct vals.
 class BinarySearchTree:

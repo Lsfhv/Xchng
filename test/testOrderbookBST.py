@@ -174,4 +174,18 @@ class TestOrderbookBST(unittest.TestCase):
         for i in range(0, len(orders) - 1) : 
             self.assertTrue(orders[i].price >= orders[i + 1].price) # inserted another 70 so there is equality now
 
+    def testGetPriceLevelsSize(self):
+        priceToSize = self.bstBID.getPriceLevelsSize()
+        for price in priceToSize:
+            self.assertEqual(priceToSize[price], 10)
 
+        self.bstBID.update(Order(60, 62, BID))
+        priceToSize = self.bstBID.getPriceLevelsSize()
+        self.assertEqual(priceToSize[60], 10 + 62)
+
+        self.assertTrue(71 not in priceToSize)
+
+        self.bstBID.update(Order(71, 1, BID))
+        priceToSize = self.bstBID.getPriceLevelsSize()
+        self.assertTrue(71 in priceToSize)
+        self.assertTrue(priceToSize[71] == 1)

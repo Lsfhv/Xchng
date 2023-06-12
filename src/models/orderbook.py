@@ -52,6 +52,11 @@ class Orderbook:
         asks.reverse()
         dictionaryOfBidAndAsk = {'bids' : bids, 'asks' : asks}
         return json.dumps(dictionaryOfBidAndAsk)
+    
+    def getPriceLevels(self):
+        bids = self.bids.getPriceLevelsSize()
+        asks = self.asks.getPriceLevelsSize()
+        return {'bids': bids, 'asks': asks}
 
     # Fills the orderbook with data from an exchange 
     def fillOrderbook(self):

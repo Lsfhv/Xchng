@@ -9,6 +9,4 @@ def getSnapshot():
     return [format(BID, response['bids']), format(ASK, response['asks'])]
 
 def format(side, data):
-    if side != BID and side != ASK:
-        raise TypeError("Side not ASK or BID")
-    return list(map(lambda x: Order(float(x[0]), float(x[1]), side), data))
+    return list(map(lambda x: Order(float(x[0]), float(x[1]), side, "binance"), data))

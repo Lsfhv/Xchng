@@ -6,7 +6,7 @@ import Orders from './Orders.vue'
 
 var x = reactive({bids:0, asks:null});
 
-axios.get("http://localhost:5000/orderbook")
+await axios.get("http://localhost:5000/pricelevels")
   .then((response) => {
 
     x.bids = response.data['bids']
@@ -23,8 +23,6 @@ axios.get("http://localhost:5000/orderbook")
           <div class="asksTable">Asks</div>
 
           <div class="asks"><Orders v-bind:title="x['asks']" side="ASK"/></div>
-
-          <!-- <div class="mutualData">Mutual data</div> -->
 
           <div class="bidsTable">Bids</div>
 

@@ -37,7 +37,6 @@ class ObBST(BinarySearchTree):
     # for asks, list return goes from small -> largeer
     def getPriceLevelsBetween(self, start, end):
         inorder = self.inorderTraversal(self.side == BID)
-        print(type(end))
         if self.side == ASK:
             return list(filter(lambda node: 
                 node.val >= start and node.val <= end, inorder))
@@ -63,3 +62,12 @@ class ObBST(BinarySearchTree):
         orders = reduce(lambda x, y: x + y, map(lambda node: node.orders ,nodes), [])[:(lambda d: None if depth == None else depth)(depth)]
         if json: return list(map(lambda order: order.toDict(), orders))
         else: return orders
+
+    # get a map, price => (total size at this price level)
+    def getPriceLevelsSize(self):
+        nodes = self.inorderTraversal(reverse = self.side == BID) # if bid, return max to min
+        p = list(map(lambda x:[x.val, x.totalSize()], nodes))
+        print(self.side)
+        print(p)
+        print({node.val: node.totalSize() for node in nodes})
+        return {node.val: node.totalSize() for node in nodes}

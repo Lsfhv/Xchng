@@ -5,7 +5,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import time
 from flask_cors import CORS, cross_origin
 
-from flask import Flask, request
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
@@ -25,6 +25,11 @@ def index():
 @cross_origin()
 def getOrderbook():
     return orderbook.getOrderbook()
+
+@app.route('/pricelevels')
+def getPriceLevels():
+    priceLevels = orderbook.getPriceLevels()
+    return jsonify(priceLevels)
 
 # Place an order in the order book
 @app.route('/placeorder', methods = ['PUT'])
