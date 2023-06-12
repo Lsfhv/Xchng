@@ -37,6 +37,7 @@ class ObBST(BinarySearchTree):
     # for asks, list return goes from small -> largeer
     def getPriceLevelsBetween(self, start, end):
         inorder = self.inorderTraversal(self.side == BID)
+        print(type(end))
         if self.side == ASK:
             return list(filter(lambda node: 
                 node.val >= start and node.val <= end, inorder))

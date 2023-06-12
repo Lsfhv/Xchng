@@ -11,4 +11,4 @@ def getSnapshot():
 def format(side, data):
     if side != BID and side != ASK:
         raise TypeError("Side not ASK or BID")
-    return list(map(lambda x: Order(x[0], x[1], side), data))
+    return list(map(lambda x: Order(float(x[0]), float(x[1]), side), data))

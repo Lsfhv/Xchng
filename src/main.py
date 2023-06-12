@@ -1,4 +1,5 @@
 from src.models.orderbook import Orderbook
+from src.models.order import Order 
 
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import time
@@ -14,37 +15,26 @@ orderbook.fillOrderbook()
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-
-# print(orderbook.getOrderbook())
-
 @app.route('/')
 @cross_origin()
 def index():
-    return 'Server Works!'
+    return f'Welcome!'
 
-
-# @app.route('/greet')
-# def say_hello():
-#   return str(orderbook.bids.getBestPrice())
-
+# Get all the orders in the orderbook
 @app.route('/orderbook')
 @cross_origin()
 def getOrderbook():
     return orderbook.getOrderbook()
 
+# Place an order in the order book
 @app.route('/placeorder', methods = ['PUT'])
 def placeOrder():
-    # print(request.json())
-    return 0
+    postData = request.get_json()
+    order = Order((postData['price']), (postData['size']), postData['side'], postData['userId'])
+    orderbook.match(order)
+    return "Success"
 
 
 app.run()
-
-# orderbook = Orderbook()
-
-# (orderbook.fillOrderbook())
-
-# print(orderbook.bids.getBestPrice(), orderbook.asks.getBestPrice())
-# print(orderbook.asks.len)
 
 # export PYTHONPATH="${PYTHONPATH}:${pwd}"
