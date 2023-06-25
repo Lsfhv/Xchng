@@ -14,8 +14,9 @@ function getInputs() {
     return [price, size, name]
 }
 
-function placeOrder(price: number, size: number, side: string, userId: string){
-    fetch('http://127.0.0.1:5000/placeorder', {
+async function placeOrder(price: number, size: number, side: string, userId: string){
+    console.log(price, size, side, userId);
+    await fetch('http://127.0.0.1:5000/placeorder', {
     method: 'PUT',
     headers: {
         'Accept': 'application/json',
@@ -34,9 +35,11 @@ function buy(){
     clearInputAndReload()
 }
 
-function sell() {
+async function sell() {
     var lst = getInputs()
-    placeOrder(lst[0], lst[1], "ASK", lst[2])
+
+    console.log(lst)
+    await placeOrder(lst[0], lst[1], "ASK", lst[2])
 
     clearInputAndReload()
 }

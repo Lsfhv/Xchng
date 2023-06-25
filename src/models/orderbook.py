@@ -13,7 +13,6 @@ class Orderbook:
 
     # Takes an order, matches it if it can, then adds it to the orderbook
     def match(self, order):
-        # print(order)
         def add(order):
             if order.side == ASK:
                 self.asks.update(order)
@@ -50,8 +49,9 @@ class Orderbook:
         bids = self.bids.getAllOrders(depth, json = True)
         asks = self.asks.getAllOrders(depth, json = True)
         asks.reverse()
-        dictionaryOfBidAndAsk = {'bids' : bids, 'asks' : asks}
-        return json.dumps(dictionaryOfBidAndAsk)
+        # dictionaryOfBidAndAsk = {'bids' : bids, 'asks' : asks}
+        # return json.dumps(dictionaryOfBidAndAsk)
+        return {'bids' : bids, 'asks' : asks}
     
     def getPriceLevels(self):
         bids = self.bids.getPriceLevelsSize()

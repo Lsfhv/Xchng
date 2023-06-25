@@ -67,7 +67,5 @@ class ObBST(BinarySearchTree):
     def getPriceLevelsSize(self):
         nodes = self.inorderTraversal(reverse = self.side == BID) # if bid, return max to min
         p = list(map(lambda x:[x.val, x.totalSize()], nodes))
-        print(self.side)
-        print(p)
-        print({node.val: node.totalSize() for node in nodes})
-        return {node.val: node.totalSize() for node in nodes}
+        return [{node.val: node.totalSize()} for node in nodes]
+        # return {node.val: node.totalSize() for node in nodes}

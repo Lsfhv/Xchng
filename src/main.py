@@ -24,12 +24,11 @@ def index():
 @app.route('/orderbook')
 @cross_origin()
 def getOrderbook():
-    return orderbook.getOrderbook()
+    return jsonify(orderbook.getOrderbook())
 
 @app.route('/pricelevels')
 def getPriceLevels():
-    priceLevels = orderbook.getPriceLevels()
-    return jsonify(priceLevels)
+    return jsonify(orderbook.getPriceLevels())
 
 # Place an order in the order book
 @app.route('/placeorder', methods = ['PUT'])
